@@ -14,7 +14,28 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://sports-hub-frontend.vercel.app" 
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+// IMPORTANT: handle preflight
+app.options("*", cors());
+
 app.use(express.json());
 
 // Routes
