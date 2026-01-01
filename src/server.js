@@ -16,7 +16,7 @@ connectDB();
 // Middleware
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sports-hub-frontend.vercel.app" 
+  "https://sports-hub-frontend-beryl.vercel.app" 
 ];
 
 app.use(cors({
